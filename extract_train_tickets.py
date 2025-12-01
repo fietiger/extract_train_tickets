@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Train Ticket Information Extractor
@@ -63,7 +62,14 @@ class TrainTicketExtractor:
             # Look for travel date pattern like "2025年08月31日"
             date_match = re.search(r'(\d{4}年\d{1,2}月\d{1,2}日)\s*\d{1,2}:\d{2}', line)
             if date_match:
-                ticket_info['date'] = date_match.group(1)
+                chinese_date = date_match.group(1)
+                # Convert Chinese date format to ISO format (YYYY-MM-DD)
+                date_parts = re.findall(r'\d+', chinese_date)
+                if len(date_parts) >= 3:
+                    year, month, day = date_parts[0], date_parts[1].zfill(2), date_parts[2].zfill(2)
+                    ticket_info['date'] = f"{year}-{month}-{day}"
+                else:
+                    ticket_info['date'] = chinese_date  # Fallback to original if parsing fails
                 break
         
         # Extract train number and stations from the same line
@@ -85,8 +91,8 @@ class TrainTicketExtractor:
                 seat_info = time_seat_match.group(2).strip()
                 
                 # Parse seat information
-                # Pattern like "11车034号上铺 动卧" or "03车08F号 二等座"
-                seat_match = re.search(r'(\d+车\d+[A-F]?号[^\s]*)\s*([^\s]*)', seat_info)
+                # Pattern like "11车034号上铺 动卧" or "03车08F号 二等座" or "12车无座 二等座"
+                seat_match = re.search(r'(\d+车[^\s]*)\s*([^\s]*)', seat_info)
                 if seat_match:
                     ticket_info['seat_number'] = seat_match.group(1)
                     if seat_match.group(2):
@@ -159,10 +165,19 @@ class TrainTicketExtractor:
         # Convert back to list
         deduplicated_data = list(unique_data.values())
         
-        # Define CSV headers
+        # Add route column to each ticket
+        for ticket_data in deduplicated_data:
+            departure = ticket_data.get('departure_station', '')
+            arrival = ticket_data.get('arrival_station', '')
+            if departure and arrival:
+                ticket_data['route'] = f"{departure} → {arrival}"
+            else:
+                ticket_data['route'] = ""
+        
+        # Define CSV headers (with route column added)
         headers = [
             'filename', 'invoice_number', 'date', 'train_number', 'departure_station', 
-            'arrival_station', 'departure_time', 'arrival_time', 
+            'arrival_station', 'route', 'departure_time', 'arrival_time', 
             'passenger_name', 'seat_type', 'seat_number', 'price'
         ]
         
