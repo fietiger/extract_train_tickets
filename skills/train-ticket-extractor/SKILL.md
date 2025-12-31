@@ -42,14 +42,14 @@ python scripts/extract_train_tickets.py <目标文件夹路径> [输出文件名
 ```
 
 - **目标文件夹路径**：可选，默认为当前工作目录。
-- **输出文件名**：可选，默认为 `train_tickets_extracted.xlsx`。
+- **输出文件名**：可选，默认为 `火车票汇总信息表.xlsx`。
 
 如果未指定路径，默认处理当前工作目录。
 
 
 ### 输出文件
 
-脚本将在当前目录下生成 `train_tickets_extracted.xlsx`。
+脚本将在当前目录下生成 `火车票汇总信息表.xlsx`。
 
 ## 依赖库
 

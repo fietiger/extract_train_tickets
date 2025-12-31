@@ -12,8 +12,9 @@ def count_pdfs(directory):
     return count
 
 def fill_reimbursement():
-    train_file, didi_file = '火车票.xlsx', '滴滴发票.xlsx'
+    train_file, didi_file = '火车票汇总信息表.xlsx', '滴滴电子发票汇总.xlsx'
     train_sum = 0
+
     if os.path.exists(train_file):
         df = pd.read_excel(train_file)
         train_sum = df['price'].apply(lambda x: float(str(x).replace('=', '')) if pd.notna(x) else 0).sum()

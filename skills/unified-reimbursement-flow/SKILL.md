@@ -20,15 +20,16 @@ This skill provides a complete, automated workflow for handling business travel 
 
 To complete the reimbursement process, follow these steps sequentially, calling the corresponding skills:
 
-1.  **Extract Train Tickets**: Call the `train-ticket-extractor` skill to process PDF files in the `火车票/` directory and generate `火车票提取结果_最新.xlsx`.
-2.  **Extract Didi Travel Records**: Call the `didi-reimbursement` skill to process "行程报销单" PDFs in the `滴滴出行电子发票及行程报销单/` directory and generate `滴滴行程汇总_技能执行版.xlsx`.
+1.  **Extract Train Tickets**: Call the `train-ticket-extractor` skill to process PDF files in the `火车票/` directory and generate `火车票汇总信息表.xlsx`.
+2.  **Extract Didi Travel Records**: Call the `didi-reimbursement` skill to process "行程报销单" PDFs in the `滴滴出行电子发票及行程报销单/` directory and generate `滴滴行程明细汇总表.xlsx`.
 3.  **Extract Didi Invoices**: Call the `didi-invoice-extractor` skill to process "电子发票" PDFs in the `滴滴出行电子发票及行程报销单/` directory and generate `滴滴电子发票汇总.xlsx`.
-4.  **Generate Expense List**: Call the `expense-report-generator` skill to combine the results from steps 1 and 2 into `费用清单_最新版.xlsx`.
+4.  **Generate Expense List**: Call the `expense-report-generator` skill to combine the results from steps 1 and 2 into `费用清单.xlsx`.
 5.  **Fill Reimbursement Form**: Call the `reimbursement-filler` skill to aggregate amounts from steps 1 and 3, count attachments, and generate `费用报销单.xlsx`.
-6.  **Convert Expense List to PDF**: Convert `费用清单_最新版.xlsx` to `费用清单.pdf` in A5 format:
+6.  **Convert Expense List to PDF**: Convert `费用清单.xlsx` to `费用清单.pdf` in A5 format:
     ```bash
-    python .codebuddy/skills/unified-reimbursement-flow/scripts/excel_to_pdf_a5.py 费用清单_最新版.xlsx 费用清单.pdf
+    python .codebuddy/skills/unified-reimbursement-flow/scripts/excel_to_pdf_a5.py 费用清单.xlsx 费用清单.pdf
     ```
+
 7.  **Convert Reimbursement Form to PDF**: Convert `费用报销单.xlsx` to `费用报销单.pdf` in A5 format. If `费用清单.pdf` has more than 1 page, the script will automatically update the page count in `费用报销单.xlsx` before conversion:
     ```bash
     python .codebuddy/skills/unified-reimbursement-flow/scripts/excel_to_pdf_a5.py 费用报销单.xlsx 费用报销单.pdf --update-count
@@ -52,7 +53,7 @@ When this skill is invoked, the agent should:
     *   `expense-report-generator`: Generate the chronological expense list.
     *   `reimbursement-filler`: Fill the main reimbursement form.
 3.  **Perform Final PDF Assembly**:
-    *   **Convert Expense List**: Run `excel_to_pdf_a5.py 费用清单_最新版.xlsx 费用清单.pdf`.
+    *   **Convert Expense List**: Run `excel_to_pdf_a5.py 费用清单.xlsx 费用清单.pdf`.
     *   **Convert Reimbursement Form**: Run `excel_to_pdf_a5.py 费用报销单.xlsx 费用报销单.pdf --update-count`. This ensures the page count in the form is correctly adjusted if the expense list exceeds one page.
     *   **Consolidate All**: Run `merge_all_pdfs.py` to generate the final package.
 

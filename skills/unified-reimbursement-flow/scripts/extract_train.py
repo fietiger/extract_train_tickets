@@ -103,7 +103,8 @@ class TrainTicketExtractor:
 
 if __name__ == "__main__":
     target = sys.argv[1] if len(sys.argv) > 1 else "火车票"
-    output = sys.argv[2] if len(sys.argv) > 2 else "火车票.xlsx"
+    output = sys.argv[2] if len(sys.argv) > 2 else "火车票汇总信息表.xlsx"
     ext = TrainTicketExtractor()
+
     ext.process_pdf_files(target)
     ext.save_to_xlsx(output)

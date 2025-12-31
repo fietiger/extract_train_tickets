@@ -8,9 +8,10 @@ import os
 def generate_expense_list():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     template_path = os.path.join(base_dir, 'assets', 'expense_template.xlsx')
-    train_path = '火车票.xlsx'
-    didi_path = '滴滴行程单.xlsx'
+    train_path = '火车票汇总信息表.xlsx'
+    didi_path = '滴滴行程明细汇总表.xlsx'
     output_path = '费用清单.xlsx'
+
 
     consolidated_data = []
     if os.path.exists(train_path):

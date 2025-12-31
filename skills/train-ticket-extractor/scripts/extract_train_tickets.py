@@ -148,7 +148,7 @@ def main():
     import sys
     # Default values
     target_dir = os.getcwd()
-    output_file = "train_tickets_extracted.xlsx"
+    output_file = "火车票汇总信息表.xlsx"
     
     # Handle command line arguments
     if len(sys.argv) > 1:

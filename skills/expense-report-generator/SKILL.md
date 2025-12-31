@@ -26,14 +26,14 @@ description: 此技能用于根据滴滴行程汇总和火车票提取结果，�
 
 ## 使用指南
 1. **准备输入文件**：
-   - 滴滴行程：`滴滴行程汇总_技能执行版.xlsx`
-   - 火车票：`火车票提取结果_最新.xlsx`
+   - 滴滴行程：`滴滴行程明细汇总表.xlsx`
+   - 火车票：`火车票汇总信息表.xlsx`
 2. **运行生成脚本**：
    使用 Python 执行 `scripts/generate_report.py`。
    脚本将：
    - 读取输入文件。
    - 加载 `assets/expense_template.xlsx` 作为样式参考。
-   - 输出 `费用清单_最新版.xlsx`。
+   - 输出 `费用清单.xlsx`。
 
 ## 注意事项
 - 输入文件的列名必须符合脚本预期（如：火车票需包含 `departure_station`, `arrival_station`, `price`, `date`；滴滴需包含 `上车时间`, `金额[元]`）。

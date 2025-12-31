@@ -11,9 +11,10 @@ def generate_expense_list():
     template_path = os.path.join(base_dir, 'assets', 'expense_template.xlsx')
     
     # 输入文件默认在当前工作目录
-    train_path = os.path.abspath('火车票提取结果_最新.xlsx')
-    didi_path = os.path.abspath('滴滴行程汇总_技能执行版.xlsx')
-    output_path = os.path.abspath('费用清单_最新版.xlsx')
+    train_path = os.path.abspath('火车票汇总信息表.xlsx')
+    didi_path = os.path.abspath('滴滴行程明细汇总表.xlsx')
+    output_path = os.path.abspath('费用清单.xlsx')
+
 
 
     # 2. 读取火车票数据 (使用 openpyxl 避免公式读取问题)

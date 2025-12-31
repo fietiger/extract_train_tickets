@@ -15,7 +15,7 @@ def count_pdfs(directory):
 
 def fill_reimbursement():
     # 1. 汇总火车票金额
-    train_file = '火车票提取结果_最新.xlsx'
+    train_file = '火车票汇总信息表.xlsx'
     train_sum = 0
     if os.path.exists(train_file):
         wb_train = load_workbook(train_file, data_only=False)

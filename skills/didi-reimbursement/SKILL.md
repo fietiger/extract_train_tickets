@@ -31,8 +31,9 @@ description: 专门用于处理“滴滴出行行程报销单”PDF文件，提�
 直接调用 `scripts/process_didi.py` 脚本，并传入输入目录和输出路径：
 
 ```bash
-python scripts/process_didi.py <input_directory> <output_excel_path>
+python scripts/process_didi.py <input_directory> 滴滴行程明细汇总表.xlsx
 ```
+
 
 ### 依赖项
 
